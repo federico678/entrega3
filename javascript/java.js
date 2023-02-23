@@ -83,7 +83,7 @@ function eliminarDelCarrito(id) {
        
         carrito.splice(index, 1);
     }
-    swal("el producto se eliminó correctamente");
+    
     localStorage.setItem("carritoEnStorage", JSON.stringify(carrito));
     imprimirTabla(carrito);
 }
@@ -94,7 +94,7 @@ function eliminarCarrito() {
 
     document.getElementById("tabla-carrito").innerHTML = "";
     document.getElementById("acciones-carrito").innerHTML = "";
-    swal("el carrito de ha vaciado correctamente!");
+    
 }
 
 //función precio total
