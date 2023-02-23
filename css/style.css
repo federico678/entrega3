@@ -1,0 +1,47 @@
+
+.body{
+    background-color:burlywood
+}
+
+.title1{
+display: flex;
+justify-content: center;
+    color:darkgreen;
+}
+.containerHeader{
+    background-color: black;
+    height: 146px;
+}
+.space{
+    color:black
+}
+.imag1{
+    height: 1;
+    width: 1;
+}
+
+#card1{
+    height: 250px;
+    width: 240px;
+}
+#card1:hover{
+    scale:1.04
+}
+.loco{
+    width: 100px;
+    height: 80px;
+}
+.loco:hover{
+    scale:1.1
+}
+
+#form1{
+    margin-right: 200px;
+    margin-bottom: 24px;
+}
+
+button:hover{
+    scale:1.1;
+}
+
+
