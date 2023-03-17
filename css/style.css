@@ -44,4 +44,65 @@ button:hover{
     scale:1.1;
 }
 
+.button11{
+    background-color: black;
+    margin-left: 411px;
+    color:white
+}
+
+#ft{
+    height: 240px;
+    width: 240px;
+margin-left: 300px;
+padding:0.3%;
+}
+
+#p1{
+    background-color: black;
+    color:white
+}
+
+.footer{
+    background-image: linear-gradient(black);
+    height: 20px;
+    width: 100%;
+    margin-top:20px;
+    list-style: none;
+
+}
+.footer1{
+    background-image:black;
+    margin:0px;
+    margin-top: 0px;
+    }
+    
+
+footer{
+    margin-top:10px;
+    background-color: black;
+    height: 100px;
+}
+.h2footer{
+    margin-left:204px;
+    background-color:black;
+    background-image: black;
+}
+.fb{
+    height: 40px;
+    width: 40px;
+}
+.ig{
+    height: 40px;
+    width: 45px;
+}
+
+.tw{
+    height: 40px;
+    width: 45px;
+}
+
+.footer{
+    display: flex;
+    justify-content:space-between
+}
 

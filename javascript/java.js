@@ -1,5 +1,4 @@
 
-swal("bienvenidos a la tiendra de collares!");
 class Collar {
     constructor(collar) {
         this.id = collar.id;
@@ -40,7 +39,8 @@ function imprimirProductosEnHTML(array) {
 
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                     <button id="agregar${collar.tipo}${collar.id}" type="button" class="btn btn-dark"> Agregar al carrito </button>
-                </div>
+                    </div>
+                    
             </div>
         </div>      
         `;
@@ -56,7 +56,7 @@ function imprimirProductosEnHTML(array) {
 
 function agregarAlCarrito(producto) {
     let index = carrito.findIndex((elemento) => elemento.id === producto.id);
-    console.log({ index });
+    console.log({ index });swal("el producto se ha agregado al carrito")
 
     if (index != -1) {
         carrito[index].agregarUnidad();
@@ -83,7 +83,8 @@ function eliminarDelCarrito(id) {
        
         carrito.splice(index, 1);
     }
-    
+    ;
+    swal("El producto se ha eliminado correctamente!", ".", "success");
     localStorage.setItem("carritoEnStorage", JSON.stringify(carrito));
     imprimirTabla(carrito);
 }
@@ -94,7 +95,7 @@ function eliminarCarrito() {
 
     document.getElementById("tabla-carrito").innerHTML = "";
     document.getElementById("acciones-carrito").innerHTML = "";
-    
+    swal("el carrito se ha vaciado correctamente!");
 }
 
 //función precio total
@@ -151,15 +152,137 @@ function imprimirTabla(array) {
         let botonEliminar = document.getElementById(`eliminar${collar.id}`);
         botonEliminar.addEventListener("click", () => eliminarDelCarrito(collar.id));
     }
-
+ 
     let precioTotal = obtenerPrecioTotal(array);
     let accionesCarrito = document.getElementById("acciones-carrito");
     accionesCarrito.innerHTML = `
 		<h5>PrecioTotal: $${precioTotal}</h5></br>
 		<button id="vaciarCarrito" onclick="eliminarCarrito()" class="btn btn-dark">Vaciar Carrito</button>
-	`;
+        <button id="pagar1" onclick="pagar()" class="btn btn-dark">Ir a pagar</button>
+        <button id="registro1" onclick="registro1()" class="btn btn-dark">información adicional</button>
+        
+        `;
+
+      //OFERTAS: FETCH
+
+      const button1 = document.getElementById("registro1")
+      button1.addEventListener("click",()=>{
+
+        button1.disabled='true';
+      
+        const lista = document.querySelector('#listado');
+
+        fetch('/data.json')
+            .then( (res) => res.json())
+            .then( (data) => {
+        
+                data.forEach((productos) => {
+                    const li = document.createElement('li')
+                    li.innerHTML = `
+                        <h4>${productos.nombre}</h4>
+                        <p id="p1">${productos.descripcion}</p>
+                        <img id="ft" src="${productos.img}"
+                        <hr/>
+                        <hr>
+                    `
+                    lista.append(li)
+                
+                  
+                })
+            })
+        
+})
+
+
+
+        //botón de pago
+        let botonPagar =document.getElementById("pagar1");
+        botonPagar.addEventListener("click",()=>{Toastify({
+        text: "CLICK AQUÍ PARA CONTINUAR CON EL PAGO",
+        onClick: function pagar() {
+            let formpagar = document.getElementById("formpagar");
+            formpagar.innerHTML =` <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+              <label for="validationCustom01" class="form-label">Nombre: </label>
+              <input type="text" class="form-control" id="validationCustom01" value="" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="validationCustom02" class="form-label">Apellido: </label>
+              <input type="text" class="form-control" id="validationCustom02" value="" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="validationCustomUsername" class="form-label">código postal: </label>
+              <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend"></span>
+                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                  Please choose a username.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="validationCustom03" class="form-label">ciudad: </label>
+              <input type="text" class="form-control" id="validationCustom03" required>
+              <div class="invalid-feedback">
+                Please provide a valid city.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="validationCustom04" class="form-label">medio de pago:</label>
+              <select class="form-select" id="validationCustom04" required>
+                
+                <option>Tarjeta de Débito</option>
+                <option>Tarjeta MasterCard</option>
+                <option>Tarjeta Visa</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid state.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="validationCustom05" class="form-label">Código de tarjeta: </label>
+              <input type="text" class="form-control" id="validationCustom05" required>
+              <div class="invalid-feedback">
+                Please provide a valid zip.
+              </div>
+            </div>
+            <div class="col-md-3">
+            <label for="validationCustom05" class="form-label">número de la tarjeta: </label>
+            <input type="text" class="form-control" id="validationCustom05" required>
+            <div class="invalid-feedback">
+              Please provide a valid zip.
+            </div>
+          </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">PAGAR</button>
+            </div>
+          </form>` ;},
+        offset: {
+          x: 360, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 390 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+      }).showToast();} )
     ;
 }
+
 
 //función fultrar búsqueda
 function filtrarBusqueda(e) {
@@ -167,7 +290,7 @@ function filtrarBusqueda(e) {
 
 
     let ingreso = document.getElementById("busqueda").value.toLowerCase();
-    let arrayFiltrado = collares.filter((elemento) => elemento.marca.toLowerCase().includes(ingreso));
+    let arrayFiltrado = collares.filter((elemento) => elemento.tipo.toLowerCase().includes(ingreso));
 
     imprimirProductosEnHTML(arrayFiltrado);
 }
@@ -245,7 +368,6 @@ const collares = [
         img: "https://media.istockphoto.com/id/1389835394/es/foto/hermoso-colgante-morganita-en-oro-con-una-cadena-sobre-un-fondo-negro.jpg?s=612x612&w=0&k=20&c=3IlcR9QfJUalMCdkH8xRGDAnHz4I_Dya3a5s_O8kIdE=",
     },
 ];
-
 
 
 imprimirProductosEnHTML(collares);
